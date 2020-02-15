@@ -74,6 +74,7 @@ def grab_user_data(session, response):
 
     filtered["nome"] = name_info.strip()
     filtered["imagem"] = grab_user_image(session, soup)
+    filtered["semestre"] = grab_user_semester(soup)
 
     return filtered
 
@@ -83,6 +84,13 @@ def grab_user_image(session, soup):
     # _img = session.get(f"{base_url}{img['src']}") # Image object content
 
     return f"{base_url}{img['src']}"
+
+
+def grab_user_semester(soup):
+    user_info = soup.find("div", {"id": "info-usuario"})
+    semester = user_info.find("strong").text
+
+    return semester
 
 
 def post_to_grade_page(session, response):
