@@ -22,7 +22,7 @@ Após finalizar a instalação das dependências, para rodar digite o comando `$
 
 ## Utilizando
 
-Atualmente só possui duas funcionalidades, que são retornar as informações do usuário e seu histórico de notas. Para ver com mais detalhes, basta acessar a url inicial da [API](http://127.0.0.1:8000/docs) após rodar o comando do `uvicorn`. Nessa página de docs, você vai ter um ambiente totalmente interativo para poder testar direto do seu navegador.
+Atualmente só possui duas funcionalidades, que são retornar as informações do usuário e seu histórico de notas. Para ver com mais detalhes, basta acessar a url inicial da [API](http://127.0.0.1:8000/docs) após rodar o comando do `uvicorn`. Nessa página, você vai ter um ambiente totalmente interativo para poder testar direto do seu navegador as requisições nas rotas existentes.
 
 ## Contribuindo
 
@@ -32,3 +32,11 @@ Para contribuir basta realizar aquele fork maroto, adicionar umas coisas ou edit
 
 - [Sosolidkk](https://github.com/sosolidkk)
 - [Mex978](https://github.com/Mex978)
+
+## To Do
+
+[ ] Adicionar opção para retornar as turmas do aluno
+[ ] Adicionar a opção de buscar dados de uma turma pelo ID da mesma
+[ ] Adicionar a opção de retornar o calendário acadêmico do período atual
+[ ] Adicionar a opção de retornar o atestado de matrícula
+[ ] Adicionar a opção de retornar o histórico do aluno

@@ -161,3 +161,7 @@ def see_all_grades(session, response):
         arr.append(aux)
 
     return arr
+
+
+def see_all_subjects(soup):
+    pass
