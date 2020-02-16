@@ -24,4 +24,7 @@ async def return_grades(user: base_models.User):
 
 @app.post("/subjects")
 async def return_subjects(user: base_models.User):
-    pass
+    _, response = scraping.login(user.username, user.password)
+    info = scraping.see_all_subjects(response)
+
+    return info

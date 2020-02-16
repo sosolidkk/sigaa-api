@@ -163,5 +163,44 @@ def see_all_grades(session, response):
     return arr
 
 
-def see_all_subjects(soup):
-    pass
+def see_all_subjects(response):
+    soup = bs(response.text, "html.parser")
+    subjects = soup.find("div", {"id": "turmas-portal"})
+
+    t_head = subjects.find("thead")
+    item_title = [
+        unidecode(title.text.replace(" ", "_").strip().lower())
+        for title in t_head.find_all("th")
+        if title.text != ""
+    ]
+
+    item_title[3] = "class_id"
+    item_title.append("form_acessarTurmaVirtual")
+
+    t_body = subjects.find("tbody")
+    t_body_tr = t_body.find_all("tr")
+
+    class_content = []
+
+    for i, tr in enumerate(t_body_tr[:]):
+        td = tr.find_all("td")
+
+        if len(td) == 6:
+            class_item = [data.text.replace("\n", "").strip() for data in td[:3]]
+            class_item.append(td[0].find("input", {"name": "idTurma"})["value"])
+
+            if i > 0:
+                class_item.append(
+                    td[0].find(
+                        "input", {"name": f"form_acessarTurmaVirtualj_id_{int(i/2)}"}
+                    )["value"]
+                )
+
+            else:
+                class_item.append(
+                    td[0].find("input", {"name": "form_acessarTurmaVirtual"})["value"]
+                )
+
+            class_content.append(class_item)
+
+    return [dict(zip(item_title, item)) for item in class_content]
