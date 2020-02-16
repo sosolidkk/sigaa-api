@@ -36,7 +36,11 @@ Para contribuir basta realizar aquele fork maroto, adicionar umas coisas ou edit
 ## To Do
 
 [ ] Adicionar opção para retornar as turmas do aluno
+
 [ ] Adicionar a opção de buscar dados de uma turma pelo ID da mesma
+
 [ ] Adicionar a opção de retornar o calendário acadêmico do período atual
+
 [ ] Adicionar a opção de retornar o atestado de matrícula
+
 [ ] Adicionar a opção de retornar o histórico do aluno
