@@ -14,7 +14,7 @@ async def return_info(user: base_models.User):
     return info
 
 
-@app.post("/grades")
+@app.post("/ver-notas")
 async def return_grades(user: base_models.User):
     session, response = scraping.login(user.username, user.password)
     info = scraping.see_all_grades(session, response)
@@ -22,7 +22,7 @@ async def return_grades(user: base_models.User):
     return info
 
 
-@app.post("/subjects")
+@app.post("/disciplinas")
 async def return_subjects(user: base_models.User):
     _, response = scraping.login(user.username, user.password)
     info = scraping.see_all_subjects(response)
