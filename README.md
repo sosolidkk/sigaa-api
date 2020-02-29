@@ -43,4 +43,6 @@ Para contribuir basta realizar aquele fork maroto, adicionar umas coisas ou edit
 
 * [ ] Adicionar a opção de retornar o atestado de matrícula
 
-* [ ] Adicionar a opção de retornar o histórico do aluno
+* [X] Adicionar a opção de retornar o histórico do aluno
+
+* [X] Adicionar a opção de retornar a declaração de vínculo

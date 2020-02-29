@@ -1,5 +1,6 @@
 import requests, lxml.html
 import time
+import base64
 from unidecode import unidecode
 from bs4 import BeautifulSoup as bs
 
@@ -91,6 +92,70 @@ def grab_user_semester(soup):
     semester = user_info.find("strong").text
 
     return semester
+
+
+def grab_user_history(session, response):
+    history_form = {}
+
+    soup = bs(response.text, "html.parser")
+    menu_div = soup.find("div", {"id": "menu-dropdown"})
+    form = menu_div.find("form")
+
+    user_id, action = grab_user_id(response)
+
+    action[
+        list(action.keys())[0]
+    ] = "menu_form_menu_discente_j_id_jsp_1325243614_85_menu:A]#{ portalDiscenteUFPI.historico }"
+
+    history_form[list(user_id.keys())[0]] = list(user_id.values())[0]
+    history_form[list(action.keys())[0]] = list(action.values())[0]
+    history_form[form["name"]] = form["id"]
+    history_form["javax.faces.ViewState"] = "j_id1"
+    url = form["action"]
+
+    response = session.post(f"{base_url}{url}", data=history_form)
+
+    encoded_bytes = base64.b64encode(response.content)
+
+    payload = {
+        "mime": "application/pdf",
+        "image": encoded_bytes,
+        "params": None,
+    }
+
+    return payload
+
+
+def grab_user_registration_statement(session, response):
+    statement_form = {}
+
+    soup = bs(response.text, "html.parser")
+    menu_div = soup.find("div", {"id": "menu-dropdown"})
+    form = menu_div.find("form")
+
+    user_id, action = grab_user_id(response)
+
+    action[
+        list(action.keys())[0]
+    ] = "menu_form_menu_discente_j_id_jsp_1325243614_85_menu:A]#{ declaracaoVinculo.emitirDeclaracao }"
+
+    statement_form[list(user_id.keys())[0]] = list(user_id.values())[0]
+    statement_form[list(action.keys())[0]] = list(action.values())[0]
+    statement_form[form["name"]] = form["id"]
+    statement_form["javax.faces.ViewState"] = "j_id1"
+    url = form["action"]
+
+    response = session.post(f"{base_url}{url}", data=statement_form)
+
+    encoded_bytes = base64.b64encode(response.content)
+
+    payload = {
+        "mime": "application/pdf",
+        "image": encoded_bytes,
+        "params": None,
+    }
+
+    return payload
 
 
 def post_to_grade_page(session, response):
