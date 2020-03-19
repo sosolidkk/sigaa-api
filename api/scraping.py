@@ -1,8 +1,13 @@
 import requests, lxml.html
 import time
 import base64
+import urllib3
 from unidecode import unidecode
 from bs4 import BeautifulSoup as bs
+from fastapi import HTTPException
+
+# temporary fix for SSL error
+urllib3.disable_warnings()
 
 base_url = "https://sigaa.ufpi.br"
 sigaa_initial_url = "/sigaa/verTelaLogin.do"
@@ -30,7 +35,7 @@ def grab_user_id(response):
 def login(username, password, matricula=None):
     session = requests.session()
 
-    login = session.get(f"{base_url}{sigaa_initial_url}")
+    login = session.get(f"{base_url}{sigaa_initial_url}", verify=False)
     login_html = lxml.html.fromstring(login.text)
 
     login_hidden_inputs = login_html.xpath(r'//form//input[@type="hidden"]')
@@ -40,6 +45,12 @@ def login(username, password, matricula=None):
     login_form["user.senha"] = password
 
     response = session.post(f"{base_url}{url_to_login}", data=login_form)
+
+    if "Ops!" in response.text or "Ocorreu um problema." in response.text:
+        raise HTTPException(status_code=400, detail="Page problem")
+
+    if "Usuário e/ou senha inválidos" in response.text:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
 
     return session, response
 
