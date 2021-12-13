@@ -6,7 +6,7 @@ fastapi==0.47.1
 h11==0.9.0
 httptools==0.0.13
 idna==2.8
-lxml==4.6.2
+lxml==4.6.5
 pydantic==1.4
 requests==2.22.0
 soupsieve==1.9.5
